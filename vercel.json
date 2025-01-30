@@ -1,18 +1,19 @@
 {
-  "builds": [
+    "builds": [
       {
-          "src": "aaltech/wsgi.py", 
-          "use": "@vercel/python", 
-          "config": { 
-              "maxLambdaSize": "50mb", 
-              "runtime": "python3.8" 
-          }
+        "src": "aaltech/wsgi.py", 
+        "use": "@vercel/python", 
+        "config": { 
+          "maxLambdaSize": "50mb", 
+          "runtime": "python3.8" 
+        }
       }
-  ],
-  "routes": [
+    ],
+    "routes": [
       {
-          "src": "/(.*)",
-          "dest": "aaltech/wsgi.py"
+        "src": "/(.*)",
+        "dest": "aaltech/wsgi.py"
       }
-  ]
-}
+    ]
+  }
+  
