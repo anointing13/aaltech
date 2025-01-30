@@ -1,5 +1,5 @@
 from django.db import models
-from product.models import Product  # Import the main Product model
+from aaltech.product.models import Product
 
 
 class HiddenProduct(Product):
