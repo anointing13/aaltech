@@ -1,0 +1,53 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+<style>
+    .table-responsive {
+        max-width: 800px; /* Adjust the width as per your design */
+        margin: 0 auto; /* Center the table */
+    }
+    .table {
+        width: 100%; /* Make sure the table takes up full width */
+    }
+</style>
+
+<!-- Favorites Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-light table-borderless table-hover text-center mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    {% for favorite in favorites %}
+                    <tr>
+                        <td class="align-middle">
+                            <a href="{% url 'add_to_cart' favorite.product.id %}" > <img src="{{ favorite.product.image.url }}" alt="{{ favorite.product.name }}" style="width: 50px;"></a>
+                            {{ favorite.product.name }}
+                        </td>
+                        <td class="align-middle">${{ favorite.get_favorite_price|floatformat:2 }}</td>
+                        <td class="align-middle">
+                            <a href="{% url 'remove_from_favorites' favorite.product.id %}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">You have no favorite products.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Favorites End -->
+{% endblock %}
+

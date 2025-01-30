@@ -1,0 +1,121 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f4;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .transaction-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .transaction-item {
+        background: #f9f9f9;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .transaction-item:nth-child(even) {
+        background: #eef6fc;
+    }
+
+    .transaction-type {
+        font-weight: bold;
+        color: #007BFF;
+    }
+
+    .transaction-points {
+        color: #555;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        transition: background 0.3s ease;
+    }
+
+    .btn-refresh {
+        background: #28a745;
+        color: #fff;
+    }
+
+    .btn-refresh:hover {
+        background: #1e7e34;
+    }
+
+    @media (max-width: 600px) {
+        .buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+
+<div class="container">
+    <h2>Withdrawals</h2>
+
+    <ul class="transaction-list">
+        {% for withdrawal in withdrawals %}
+            <li class="transaction-item">
+                <span class="transaction-type">{{ withdrawal.status }}</span>
+                <span class="transaction-points">{{ withdrawal.points }} points</span>
+            </li>
+        {% empty %}
+            <li class="transaction-item">No withdrawals found.</li>
+        {% endfor %}
+    </ul>
+
+    {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    <div class="buttons">
+        <button class="btn btn-refresh" id="refresh-button">Refresh</button>
+    </div>
+</div>
+
+<script>
+    // Add an event listener to the refresh button
+    document.getElementById('refresh-button').addEventListener('click', function () {
+        // Reload the current page
+        window.location.reload();
+    });
+</script>
+
+{% endblock %}

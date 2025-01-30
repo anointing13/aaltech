@@ -1,0 +1,89 @@
+{% extends "product/layout.html" %}
+{% load static %}
+{% block 'content' %}
+
+    <style>
+        .min-vh-100 {
+            min-height: 100vh;
+            background-color: #f4f4f4; /* Optional background for better visibility */
+            display: grid;
+            place-items: center; /* Centers the form horizontally and vertically */
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            width: 100%;
+            max-width: 400px; /* Max width for better structure */
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .btn-orange {
+            background-color: orange;
+            border-color: orange;
+            color: white;
+            width: 100%;
+            border-radius: 2px;
+            padding: 10px;
+        }
+        .btn-orange:hover {
+            background-color: darkorange;
+            border-color: darkorange;
+        }
+    </style>
+
+<body class="min-vh-100">
+    <div class="card">
+        <h2>Book Appointment</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.non_field_errors }}
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+
+            <div class="form-group">
+                {{ form.date.label_tag }}
+                {{ form.date }}
+            </div>
+
+            <div class="form-group">
+                {{ form.message.label_tag }}
+                {{ form.message }}
+            </div>
+
+            <button type="submit" class="btn btn-orange">Book Appointment</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+<script>
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const containerSize = document.querySelector('select[name="container_size"]').value;
+    const oilOrGas = document.querySelector('select[name="oil_or_gas"]').value;
+    if (!containerSize || !oilOrGas) {
+        e.preventDefault();
+        alert('Please select both container size and oil/gas type.');
+    }
+});
+
+</script>
+
+
+{% endblock %}

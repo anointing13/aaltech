@@ -1,0 +1,60 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+    <style>
+        .min-vh-100 {
+            min-height: 100vh;
+            display: grid; /* Use grid layout for centering */
+            place-items: center; /* Center the content vertically and horizontally */
+            background-color: #f4f4f4; /* Soft background color */
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for modern look */
+            background-color: white;
+            padding: 30px;
+            text-align: center; /* Center text in card */
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .btn-orange {
+            background-color: orange;
+            border-color: orange;
+            color: white;
+            width: 100%; /* Consistent width for the button */
+            padding: 10px 0; /* Padding for a better button look */
+            border-radius: 5px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth hover effect */
+        }
+        .btn-orange:hover {
+            background-color: darkorange;
+        }
+    </style>
+
+    <body class="min-vh-100">
+        <div class="card">
+            <h1>Appointment Booked!</h1>
+            <p>Thank you, {{ customer_name }}. Your appointment has been booked. You will receive a confirmation email within 24 hours. If there’s a conflict with your requested date, we will suggest a new time. We appreciate your patience.</p>
+            <a style="text-decoration: none;" href="/" class="btn btn-orange">Back to Home</a>
+        </div>
+    </body>
+
+{% endblock %}
+
+

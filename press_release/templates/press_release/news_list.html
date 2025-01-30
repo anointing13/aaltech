@@ -1,0 +1,186 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+<style>
+    .min-vh-100 {
+        min-height: 100vh;
+        display: grid;
+        background-color: #f4f4f4;
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        padding: 30px;
+        text-align: center;
+        max-width: 800px; /* Default card width */
+        width: 100%;
+    }
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    .btn-orange {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+        width: 150%;
+        padding: 10px 0;
+        border-radius: 5px;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn-orange:hover {
+        background-color: #007bff;
+    }
+
+    /* Updated flex container for the cards */
+    .news-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between; /* Align items properly */
+    }
+
+    .news-item {
+        flex: 1 1 calc(33.33% - 20px); /* Default to 3 items per row */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .news-image {
+        width: 100%;
+        height: auto;
+    }
+    .news-content {
+        padding: 10px;
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination-button {
+        background-color: #17a2b8;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .pagination-button:hover {
+        background-color: #007bff;
+    }
+
+    /* Media query for screens smaller than 1024px (tablet/medium devices) */
+    @media (max-width: 1024px) {
+        .news-item {
+            flex: 1 1 calc(50% - 20px); /* Two items per row */
+        }
+    }
+
+    /* Media query for small screens (up to 768px) */
+    @media (max-width: 768px) {
+        .news-item {
+            flex: 1 1 calc(50% - 20px); /* Two items per row */
+            padding: 15px; /* Reduced padding for smaller screens */
+        }
+
+        .card {
+            padding: 20px; /* Reduced padding inside the card */
+        }
+
+        h1 {
+            font-size: 20px; /* Smaller font size for small screens */
+        }
+
+        p {
+            font-size: 16px; /* Smaller font size for small screens */
+        }
+
+        .btn-orange {
+            width: 120%; /* Adjust button size */
+            font-size: 14px; /* Smaller font size for buttons */
+        }
+    }
+
+    /* Media query for extra small screens (up to 480px) */
+    @media (max-width: 480px) {
+        .news-item {
+            flex: 1 1 100%; /* One item per row */
+            padding: 10px; /* Further reduce padding */
+        }
+
+        .card {
+            padding: 15px; /* Further reduce padding inside the card */
+        }
+
+        h1 {
+            font-size: 18px; /* Smaller font size for very small screens */
+        }
+
+        p {
+            font-size: 14px; /* Smaller font size for very small screens */
+        }
+
+        .btn-orange {
+            width: 100%; /* Make button full width on extra small screens */
+            font-size: 12px; /* Smaller font size for buttons */
+        }
+    }
+
+    /* Media query for large screens (min-width: 1200px) */
+    @media (min-width: 1200px) {
+        .card {
+            max-width: 500px; /* Increased card width on large screens */
+        }
+    }
+</style>
+
+<div class="min-vh-100">
+    <header class="news-header">
+        <h1 style="text-align: center;">Press Release News</h1>
+    </header>
+    <div id="news-container" class="news-container">
+        {% for news in reports %}
+        <div class="news-item card">
+            <a href="{% url 'news_detail' slug=news.slug %}">
+                <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-image">
+            </a>
+            <div class="news-content">
+                <h2>{{ news.title }}</h2>
+                <p>{{ news.description|truncatewords:30 }}</p>
+                <p class="news-date">{{ news.published_date|date:"F d, Y" }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No news articles available.</p>
+        {% endfor %}
+    </div>
+
+    <div class="pagination-container">
+        {% if reports.has_previous %}
+            <a href="?page={{ reports.previous_page_number }}" class="pagination-button">Previous</a>
+        {% endif %}
+
+        {% if reports.has_next %}
+            <a href="?page={{ reports.next_page_number }}" class="pagination-button">Next</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

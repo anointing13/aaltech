@@ -1,0 +1,438 @@
+{% extends "product/layout.html" %}
+		{% load static %}
+
+{% block 'content' %}
+
+
+<style>
+    /* Preloader Styles */
+/* Preloader Styles */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f7f8fc, #e0e5ec); /* Soft gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#preloader-logo {
+    width: 300px; /* Adjust size as needed */
+    animation: fade-in-out 2s infinite;
+}
+
+/* Fade-in-out animation for the logo */
+@keyframes fade-in-out {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Hide content initially */
+#content {
+    display: none;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+/* Fade-in animation for the content */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+<!-- Preloader -->
+<div id="preloader">
+    <img src="{% static 'product/assets/img/Ante_omnia-removebg-preview.png' %}" alt="Logo" id="preloader-logo">
+</div>
+
+
+    <!-- Carousel Start -->
+    <div class="container-fluid mb-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#header-carousel" data-slide-to="1"></li>
+                        <li data-target="#header-carousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item position-relative active" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{% static 'product/assets/img/lpg1.jpeg' %}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">LPG Gas Tanks</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="/shop/">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item position-relative" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{% static 'product/assets/img/vane_pump.webp' %}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">LPG Gas Vane Pump</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="/shop/">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item position-relative" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src=" {% static 'product/assets/img/lpg-gas-dispenser17591159074.webp' %}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">LPG Gas Dispenser</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="/shop/">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" src="{% static 'product/assets/img/pexels-rezwan-1078884.jpg' %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">ABOVE ALL MINING TECHNOLOGY</h6>
+                        <h3 class="text-white mb-3">Mining Site</h3>
+                        <a href="http://127.0.0.1:2000/" class="btn btn-primary" >Visit Now</a>
+                    </div>
+                </div>
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" src="{% static 'product/assets/img/pexels-enginakyurt-20500734.jpg' %}" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">ANTE OMNIA</h6>
+                        <h3 class="text-white mb-3">Gas & Petroleum</h3>
+                        <a href="/oilgas/" class="btn btn-primary">Visit Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+
+    <!-- Featured Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Fast Delivery</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Featured End -->
+
+
+    <!-- Categories Start -->
+    <div class="container-fluid pt-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
+        <div class="row px-xl-5 pb-3">
+            {% for data in key %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="/shop/">
+                    <div class="cat-item d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="{{ data.image.url }}" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>{{data.category}}</h6>
+                            <small class="text-body">{{data.units_in_stock}} Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+             {% endfor %}
+
+    <!-- Categories End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
+        <div class="row px-xl-5">
+
+             {% for data in key %}
+<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+    <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden">
+            <img class="img-fluid w-100" src="{{ data.image.url }}" alt="">
+            <div class="product-action">
+                <!-- Add to Cart button -->
+               <form method="post" action="{% url 'add_to_cart' data.id %}" id="addToCartForm{{ forloop.counter }}">
+                          {% csrf_token %}
+                     <a class="btn btn-outline-dark btn-square" id="submitBtn{{ forloop.counter }}">
+                          <i class="fa fa-shopping-cart"></i>
+                     </a>
+                </form>
+
+                <!-- Add to Favorites button -->
+                <a class="btn btn-outline-dark btn-square" href="{% url 'add_to_favorites' data.id %}">
+                    <i class="far fa-heart"></i>
+                </a>
+                <a class="btn btn-outline-dark btn-square" href="/"><i class="fa fa-sync-alt"></i></a>
+<!--                <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>-->
+            </div>
+        </div>
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="show/{{ data.id }}/">{{ data.name }}</a>
+            <div class="d-flex align-items-center justify-content-center mt-2">
+                <h5>GHS {{ data.get_display_price }}</h5>
+                <h6 class="text-muted ml-2"><del>%{{ data.discount }}</del></h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-1">
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small>(99)</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+
+            <div class="col-12">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <!-- Previous Page Link -->
+            <li class="page-item {% if not key.has_previous %}disabled{% endif %}">
+                {% if key.has_previous %}
+                    <a class="page-link" href="?page={{ key.previous_page_number }}&search={{ request.GET.search }}">Previous</a>
+                {% else %}
+                    <span class="page-link">Previous</span>
+                {% endif %}
+            </li>
+
+            <!-- Page Number Links -->
+            {% for num in key.paginator.page_range %}
+                <li class="page-item {% if key.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}&search={{ request.GET.search }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+
+            <!-- Next Page Link -->
+            <li class="page-item {% if not key.has_next %}disabled{% endif %}">
+                {% if key.has_next %}
+                    <a class="page-link" href="?page={{ key.next_page_number }}&search={{ request.GET.search }}">Next</a>
+                {% else %}
+                    <span class="page-link">Next</span>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</div>
+
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    <!-- product/templates/product/index.html -->
+
+<!-- Other content of index.html -->
+
+<!-- Offer Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Special Offer</span></h2>
+    <div class="row px-xl-5">
+        {% for offer in active_offers %}
+            <div class="col-md-6">
+                <div class="product-offer mb-30" style="height: 300px;">
+                    <img class="img-fluid" src="{{ offer.image.url }}" alt="{{ offer.product.name }}">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Save {{ offer.discount_percentage }}%</h6>
+                        <h3 class="text-white mb-3">{{ offer.product.name }}</h3>
+                        <a href="{% url 'show' offer.product.id %}" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Offer End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent Products</span></h2>
+        <div class="row px-xl-5">
+            <div class="row">
+    {% for recent_product in recent_products %}
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+                <div class="product-img position-relative overflow-hidden">
+                    <!-- Display the product image (or a placeholder if not available) -->
+                    {% if recent_product.product.image %}
+                        <img class="img-fluid w-100" src="{{ recent_product.product.image.url }}" alt="{{ recent_product.product.name }}">
+                    {% elif recent_product.product.image2 %}
+                        <img class="img-fluid w-100" src="{{ recent_product.product.image2.url }}" alt="{{ recent_product.product.name }}">
+                    {% else %}
+                        <img class="img-fluid w-100" src="img/default-product.jpg" alt="No Image Available">
+                    {% endif %}
+
+                    <div class="product-action">
+                        <a class="btn btn-outline-dark btn-square" href="{% url 'add_to_cart' recent_product.product.id %}"><i class="fa fa-shopping-cart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="{% url 'add_to_favorites' recent_product.product.id %}"><i class="far fa-heart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="/"><i class="fa fa-sync-alt"></i></a>
+<!--                        <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>-->
+                    </div>
+                </div>
+                <div class="text-center py-4">
+                    <a class="h6 text-decoration-none text-truncate" href="show/{{ recent_product.product.id }}/">{{ recent_product.product.name }}</a>
+                    <div class="d-flex align-items-center justify-content-center mt-2">
+                        <h5>GHS {{ recent_product.product.price }}</h5>
+                        {% if recent_product.product.original_price %}
+                            <h6 class="text-muted ml-2"><del>GHS {{ recent_product.product.original_price }}</del></h6>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small>(99)</small> <!-- Placeholder for rating count -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+<div class="col-12">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <!-- Previous Page Link -->
+            <li class="page-item {% if not recent_products.has_previous %}disabled{% endif %}">
+                {% if recent_products.has_previous %}
+                    <a class="page-link" href="?recent_page={{ recent_products.previous_page_number }}&search={{ request.GET.search }}">Previous</a>
+                {% else %}
+                    <span class="page-link">Previous</span>
+                {% endif %}
+            </li>
+
+            <!-- Page Number Links -->
+            {% for num in recent_products.paginator.page_range %}
+                <li class="page-item {% if recent_products.number == num %}active{% endif %}">
+                    <a class="page-link" href="?recent_page={{ num }}&search={{ request.GET.search }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+
+            <!-- Next Page Link -->
+            <li class="page-item {% if not recent_products.has_next %}disabled{% endif %}">
+                {% if recent_products.has_next %}
+                    <a class="page-link" href="?recent_page={{ recent_products.next_page_number }}&search={{ request.GET.search }}">Next</a>
+                {% else %}
+                    <span class="page-link">Next</span>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</div>
+        </div>
+    </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+<script>
+    // Select all submit buttons by their id prefix
+    document.querySelectorAll('[id^="submitBtn"]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default anchor behavior
+            // Construct the corresponding form ID
+            const formId = btn.id.replace('submitBtn', 'addToCartForm');
+            document.getElementById(formId).submit(); // Submit the form
+        });
+    });
+</script>
+
+
+        <!-- JavaScript to update favorite count -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateFavoriteCount() {
+            fetch('{% url "favorite_count" %}')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('favoriteCountBadge').textContent = data.count;
+                })
+                .catch(error => console.error('Error fetching favorite count:', error));
+        }
+
+        // Initial count update
+        updateFavoriteCount();
+
+        // Optionally, set up an interval to periodically update the count
+        setInterval(updateFavoriteCount, 60000); // Update every 60 seconds
+    });
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Fetch products data
+    fetch('/products-data/')
+        .then(response => response.json())
+        .then(data => {
+            console.log("Products loaded:", data); // Log loaded products
+
+            // Hide preloader and show content
+            const preloader = document.getElementById("preloader");
+            const content = document.getElementById("content");
+
+            preloader.style.opacity = "0"; // Smooth fade-out
+            setTimeout(() => {
+                preloader.style.display = "none"; // Hide preloader
+                content.style.display = "block"; // Show content
+            }, 500); // Wait for fade-out animation
+        })
+        .catch(error => {
+            console.error("Error loading products:", error);
+        });
+});
+
+</script>
+{% endblock %}

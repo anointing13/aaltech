@@ -1,0 +1,243 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<head>
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Heading Styling */
+        .gallery-heading {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Gallery List Styling */
+        .gallery-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .gallery-item {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image Styling */
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            border-bottom: 2px solid #f1f1f1;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+
+        .no-images {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #999;
+            padding: 20px;
+        }
+
+        /* Gallery Info */
+        .gallery-info {
+            padding: 15px;
+        }
+
+        .gallery-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .gallery-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .step-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pagination-link {
+            color: #FFCC80;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #d3d3d3;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1rem;
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .pagination-link:hover {
+            background-color: #d3d3d3;
+            color: #FF9800;
+        }
+
+        .pagination-link:focus {
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+
+        .current {
+            font-weight: 600;
+            color: #333;
+            padding: 10px 20px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+        .pagination .step-links a,
+        .pagination .step-links span {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .pagination .step-links a.disabled {
+            color: #ccc;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .pagination .step-links a.disabled:hover {
+            background-color: #f1f1f1;
+            color: #ccc;
+        }
+
+        .pagination .step-links a.active {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .gallery-heading {
+                font-size: 1.8rem;
+            }
+
+            .gallery-list {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .gallery-title {
+                font-size: 1.1rem;
+            }
+
+            .gallery-description {
+                font-size: 0.95rem;
+            }
+
+            .pagination-link {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+
+            .current {
+                font-size: 0.9rem;
+            }
+
+            .pagination .step-links a,
+            .pagination .step-links span {
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <h1 class="gallery-heading">Gallery List</h1>
+
+    <ul class="gallery-list">
+        {% for gallery in galleries %}
+            <li class="gallery-item">
+                {% if gallery.images.first %}
+                    <!-- Display the first image in the gallery -->
+                    <a href="{% url 'gallery_detail' gallery.slug %}" class="gallery-link">
+                        <img src="{{ gallery.images.first.image.url }}" alt="{{ gallery.images.first.caption }}" class="gallery-image">
+                    </a>
+                {% else %}
+                    <!-- Display a placeholder if there are no images in the gallery -->
+                    <p class="no-images">No images available</p>
+                {% endif %}
+                <div class="gallery-info">
+                    <p class="gallery-title">{{ gallery.title }}</p>
+                    <p class="gallery-description">{{ gallery.description }}</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if galleries.has_previous %}
+                <a href="?page=1" class="pagination-link">&laquo; first</a>
+                <a href="?page={{ galleries.previous_page_number }}" class="pagination-link">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ galleries.number }} of {{ galleries.paginator.num_pages }}
+            </span>
+
+            {% if galleries.has_next %}
+                <a href="?page={{ galleries.next_page_number }}" class="pagination-link">next</a>
+                <a href="?page={{ galleries.paginator.num_pages }}" class="pagination-link">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+</body>
+
+{% endblock %}
+
+

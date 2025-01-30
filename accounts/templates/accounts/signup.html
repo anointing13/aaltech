@@ -1,0 +1,86 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+<style>
+    .min-vh-100 {
+        min-height: 100vh;
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .form-group input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%; /* Ensure input fields take full width */
+        box-sizing: border-box; /* Prevent padding from increasing width */
+    }
+    .btn-orange {
+        background-color: orange;
+        border-color: orange;
+        color: white;
+        width: 100%; /* Make the button width consistent */
+        border-radius: 2px;
+    }
+    .btn-orange:hover {
+        background-color: darkorange;
+        border-color: darkorange;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Signup</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                {{ form.email.label_tag }}  <!-- Use email field instead of username -->
+                {{ form.email }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.first_name.label_tag }}  <!-- Add first_name field -->
+                {{ form.first_name }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.last_name.label_tag }}  <!-- Add last_name field -->
+                {{ form.last_name }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.password1.label_tag }}  <!-- Keep password fields unchanged -->
+                {{ form.password1 }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div>
+
+            <!-- Display form errors -->
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-block btn-orange py-2">
+                Signup
+            </button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="/accounts/login" class="text-muted">Already have an account? Login</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

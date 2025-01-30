@@ -1,0 +1,101 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<style>
+    .orders-section {
+        max-width: 600px; /* Reduced width for a sleeker design */
+        margin: 20px auto; /* Centers the section horizontally with some vertical spacing */
+        padding: 25px; /* Added more padding for a spacious feel */
+        background-color: #ffffff; /* Clean white background */
+        border-radius: 12px; /* Slightly more rounded corners for a modern look */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Deeper shadow for a modern effect */
+        border: 1px solid #e0e0e0; /* Subtle border for definition */
+    }
+
+    .section-title {
+        text-align: center; /* Centers the section title */
+        font-size: 1.8em; /* Slightly increased font size */
+        color: #2c3e50; /* Modern dark blue for the title */
+        letter-spacing: 1px; /* Adds some spacing between letters */
+        margin-bottom: 20px; /* Extra spacing below the title */
+    }
+
+    .order-list {
+        display: flex; /* Use flexbox for alignment */
+        flex-direction: column; /* Stack orders vertically */
+        gap: 20px; /* Increased spacing between each order for clarity */
+    }
+
+    .order {
+        background-color: #f5f5f5; /* Soft gray background for each order */
+        padding: 20px; /* Increased padding inside each order */
+        border-radius: 10px; /* Rounded corners for each order */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow for modern depth */
+        text-align: center; /* Center text inside each order */
+        border-left: 4px solid #f39c12; /* Add a colored accent border on the left */
+        transition: transform 0.3s ease-in-out; /* Smooth animation for hover effect */
+    }
+
+    .order:hover {
+        transform: scale(1.02); /* Slight zoom-in effect on hover */
+    }
+
+    .order h5 {
+        margin-bottom: 12px; /* Spacing below the order ID */
+        color: #3498db; /* Accent color for order ID */
+    }
+
+    .order p {
+        margin: 8px 0; /* Spacing for paragraph elements */
+        font-size: 1em; /* Standardized font size */
+        color: #7f8c8d; /* Neutral color for text */
+    }
+
+    .order ul {
+        list-style: none; /* Removes default list styles */
+        padding: 0; /* Removes padding */
+    }
+
+    .order ul li {
+        margin-bottom: 10px; /* Spacing between list items */
+        color: #2c3e50; /* Dark text color for clarity */
+    }
+</style>
+
+<div class="orders-section">
+    <h3 class="section-title text-uppercase mb-4">Your Orders</h3>
+
+    {% if orders.exists %}
+        <div class="order-list">
+            {% for order in orders %}
+                <div class="order">
+                    <h5>Order Number: {{ order.order_number }}</h5>  <!-- Change to Order Number -->
+                    <p>Payment Method: {{ order.payment_method }}</p>
+                    <p>Total Amount: ${{ order.total_amount }}</p>
+                    <p>Status: {{ order.status }}</p>
+                    {% if order.status == "Shipped" %}
+                        <p>Shipped Date: {{ order.shipped_date }}</p>
+                    {% endif %}
+
+                     {% for item in order.items.all %}
+                    <p>Items: {{ item.product.name }}</p>
+                    <ul>
+                            <li>
+                                Quantity: {{ item.quantity }}
+                            </li>
+                            <li>
+                                Price: ${{ item.price }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no orders.</p>
+    {% endif %}
+</div>
+{% endblock %}

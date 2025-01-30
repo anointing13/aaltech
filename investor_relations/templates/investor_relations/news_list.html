@@ -1,0 +1,167 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+<style>
+    .min-vh-100 {
+        min-height: 100vh;
+        display: grid;
+        background-color: #f4f4f4;
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        padding: 30px;
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+    }
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    .btn-orange {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+        width: 150%;
+        padding: 10px 0;
+        border-radius: 5px;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn-orange:hover {
+        background-color: #007bff;
+    }
+    .news-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+    }
+    .news-item {
+        flex: 1 1 calc(33.33% - 20px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .news-image {
+        width: 100%;
+        height: auto;
+    }
+    .news-content {
+        padding: 10px;
+    }
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination-button {
+        background-color: #17a2b8;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .pagination-button:hover {
+        background-color: #007bff;
+    }
+    @media (max-width: 1024px) {
+        .news-item {
+            flex: 1 1 calc(50% - 20px);
+        }
+    }
+    @media (max-width: 768px) {
+        .news-item {
+            flex: 1 1 calc(50% - 20px);
+            padding: 15px;
+        }
+        .card {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 20px;
+        }
+        p {
+            font-size: 16px;
+        }
+        .btn-orange {
+            width: 120%;
+            font-size: 14px;
+        }
+    }
+    @media (max-width: 480px) {
+        .news-item {
+            flex: 1 1 100%;
+            padding: 10px;
+        }
+        .card {
+            padding: 15px;
+        }
+        h1 {
+            font-size: 18px;
+        }
+        p {
+            font-size: 14px;
+        }
+        .btn-orange {
+            width: 100%;
+            font-size: 12px;
+        }
+    }
+    @media (min-width: 1200px) {
+        .card {
+            max-width: 500px;
+        }
+    }
+</style>
+
+<div class="min-vh-100">
+    <header class="news-header">
+        <h1 style="text-align: center;">Investor Relation News</h1>
+    </header>
+    <div id="news-container" class="news-container">
+        {% for news in news_items %}
+        <div class="news-item card">
+            <a href="{% url 'news_detail' news.slug %}">
+                <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-image">
+            </a>
+            <div class="news-content">
+                <h2>{{ news.title }}</h2>
+                <p>{{ news.description|truncatewords:30 }}</p>
+                <p class="news-date">{{ news.published_date|date:"F d, Y" }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align: center;" >No news articles available.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-container">
+        {% if news_items.has_previous %}
+            <a href="?page={{ news_items.previous_page_number }}" class="pagination-button">Previous</a>
+        {% endif %}
+
+        {% if news_items.has_next %}
+            <a href="?page={{ news_items.next_page_number }}" class="pagination-button">Next</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

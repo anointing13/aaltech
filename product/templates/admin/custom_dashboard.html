@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div class="container mx-auto">
+    <h1 class="text-2xl font-bold">Custom Admin Dashboard</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="p-4 bg-white shadow rounded-lg">
+            <h2 class="text-lg font-semibold">Staff Overview</h2>
+            <p>Total Staff: {{ staff_count }}</p>
+        </div>
+        <div class="p-4 bg-white shadow rounded-lg">
+            <h2 class="text-lg font-semibold">Recent Transactions</h2>
+            <p>Total Transactions: {{ transaction_count }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

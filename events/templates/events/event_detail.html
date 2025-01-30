@@ -1,0 +1,102 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<style>
+    .min-vh-100 {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background-color: #f4f4f4;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        padding: 30px;
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .card h1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .card .news-date {
+        font-size: 16px;
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    .card .description {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+        text-align: justify;
+    }
+
+    /* Media Queries for responsiveness */
+    @media (max-width: 768px) { /* Medium screens like tablets */
+        .card {
+            padding: 20px;
+            max-width: 90%;
+        }
+
+        .card h1 {
+            font-size: 20px;
+        }
+
+        .card .description {
+            font-size: 14px;
+        }
+
+        .card img {
+            height: 300px;
+        }
+    }
+
+    @media (max-width: 480px) { /* Small screens like mobile phones */
+        .card {
+            padding: 15px;
+            max-width: 95%;
+        }
+
+        .card h1 {
+            font-size: 18px;
+        }
+
+        .card .description {
+            font-size: 14px;
+        }
+
+        .card img {
+            height: 200px;
+        }
+    }
+</style>
+<div class="min-vh-100">
+    <div class="card">
+        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+        <h1>{{ event.title }}</h1>
+        <p class="news-date">{{ event.published_date|date:"F d, Y" }}</p>
+        <p class="description">{{ event.description }}</p>
+    </div>
+</div>
+{% endblock %}

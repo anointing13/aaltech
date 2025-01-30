@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Market Price Updates</title>
+    <style>
+        /* Base styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #004080; /* Dark blue */
+            color: #ffcc00; /* Yellow text */
+        }
+
+        .widget-container {
+            display: flex;
+            justify-content: space-between; /* Spacing between widgets */
+            align-items: center;
+            margin: 20px auto;
+            padding: 0 20px;
+            gap: 20px; /* Space between widgets */
+        }
+
+        .widget {
+            flex: 1; /* Each widget takes up equal space */
+            max-width: 250px; /* Limit max width */
+            height: 100px; /* Reduce height for compact price-only view */
+            border: 1px solid #004080; /* Blue border */
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .widget-container {
+                flex-direction: column; /* Stack widgets vertically on smaller screens */
+            }
+
+            .widget {
+                max-width: 100%; /* Full width on smaller screens */
+                height: 80px; /* Adjust height */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Live Market Price Updates</h1>
+</div>
+
+<div class="widget-container">
+    <!-- XAUUSD Price -->
+    <div class="widget">
+        <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_123&symbol=OANDA:XAUUSD&interval=D&hide_side_toolbar=1&allow_symbol_change=1&style=1" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    <!-- XAGUSD Price -->
+    <div class="widget">
+        <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_123&symbol=OANDA:XAGUSD&interval=D&hide_side_toolbar=1&allow_symbol_change=1&style=1" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    <!-- USD Index Price -->
+    <div class="widget">
+        <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_123&symbol=TVC:DXY&interval=D&hide_side_toolbar=1&allow_symbol_change=1&style=1" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+
+    <!-- USDGHS Price -->
+    <div class="widget">
+        <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_123&symbol=OANDA:USDGHS&interval=D&hide_side_toolbar=1&allow_symbol_change=1&style=1" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+</div>
+
+</body>
+</html>

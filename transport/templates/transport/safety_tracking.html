@@ -1,0 +1,144 @@
+{% extends "product/layout.html" %}
+		{% load static %}
+
+{% block 'content' %}
+
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #FFA500; /* Orange */
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #00BFFF; /* Light Blue */
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFA500;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust height as needed */
+    overflow: hidden;
+}
+
+.fade-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    border-radius: 20px;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+
+</style>
+<body>
+<section id="about">
+    <h2 style=" text-align: center;" >Safety and Tracking</h2>
+    <div class="image-container">
+<!--        <div class="overlay">Welcome to Ante Omnia Gold Mining Limited <br> Your partner in sustainable mining practices. </div>-->
+        <img src="{% static 'product/assets/img/pexels-davidpeinado-11796761.jpg' %}" alt="Gold Mining 1" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-anthony-nguyen-41365574-7305672.jpg' %}" alt="Gold Mining 2" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-burst-373978.jpg' %}" alt="Gold Mining 3" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-alisa-fjolars-211349332-11759163.jpg' %}" alt="Gold Mining 4" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-hanfmy-6722931.jpg' %}" alt="Gold Mining 5" class="fade-image">
+    </div>
+</section>
+
+    <section id="about">
+        <h2 style=" text-align: center;">Real-Time Tracking and Transparency</h2>
+        <p>At Ante Omnia Limited, passenger safety is our top priority. We provide real-time tracking for all journeys, allowing passengers and their families to monitor the bus’s location and stay updated on any delays, ensuring peace of mind throughout the trip.</p>
+    </section>
+
+    <section id="services">
+        <h2 style=" text-align: center;">Enhanced Safety Measures</h2>
+        <p>Our buses are equipped with CCTV, safety equipment, and emergency protocols to create a secure travel environment. Our trained staff are prepared to handle any situation, delivering the highest standards of safety and care from the moment passengers board.</p>
+    </section>
+
+  <section id="video">
+    <h2 style="text-align: center;">Watch Our Journey</h2>
+    <iframe width="100%" height="348" src="https://www.youtube.com/embed/1AbehpoIo-0?list=PLC7XdfstVva5XlayjXNMKTvVrQb3ij8ZT&autoplay=1" title="Anointing Zone" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px;"></iframe>
+  </section>
+
+
+
+
+    <script>
+        const images = document.querySelectorAll('.fade-image');
+const overlay = document.querySelector('.overlay');
+let currentImageIndex = 0;
+
+function fadeImages() {
+    // Set the current image to be visible
+    images[currentImageIndex].style.opacity = 1;
+
+    // Fade out the current image after some time
+    setTimeout(() => {
+        images[currentImageIndex].style.opacity = 0;
+
+        // Update the index for the next image
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+
+        // Fade in the next image
+        setTimeout(fadeImages, 1000); // 1 second to fade out
+    }, 4000); // 4 seconds for each image
+}
+
+// Start the fade effect
+fadeImages();
+
+    </script>
+</body>
+
+{% endblock %}

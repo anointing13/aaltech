@@ -1,0 +1,109 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}  <!-- Fixed block name -->
+<head>
+    <link rel="stylesheet" href="{% static 'product/css/style.css' %}">
+</head>
+<body class="booking-body">  <!-- Added class to body -->
+    <div class="booking-container">  <!-- Added container div -->
+        <h1 class="booking-title">Make a Booking</h1>  <!-- Added title class -->
+        <form method="POST" id="booking-form" class="booking-form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="error-messages">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {{ form.as_p }}  <!-- This will now include the populated dropdowns for destinations -->
+
+            <div>
+                <p id="price-display">Price: GHS 0.00</p>
+            </div>
+            <button type="button" class="book-btn">Book and Pay with Paystack</button> <!-- Changed to button -->
+        </form>
+
+        <script src="https://js.paystack.co/v1/inline.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const fromDestinationSelect = document.querySelector('#id_from_destination');
+                const toDestinationSelect = document.querySelector('#id_to_destination');
+                const priceDisplay = document.getElementById('price-display');
+                const bookButton = document.querySelector('.book-btn');
+                let transportPrice = 0;
+
+                // Function to fetch price based on selected destinations
+                function fetchPrice() {
+                    const fromDestination = fromDestinationSelect.value;
+                    const toDestination = toDestinationSelect.value;
+
+                    if (fromDestination && toDestination) {
+                        fetch(`/get_transport_price/?from_destination=${fromDestination}&to_destination=${toDestination}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                transportPrice = parseFloat(data.price);
+                                priceDisplay.textContent = `Price: GHS ${transportPrice.toFixed(2)}`;
+                            });
+                    } else {
+                        priceDisplay.textContent = 'Price: GHS 0.00';
+                    }
+                }
+
+                // Function to mark all fields as required
+                function markFieldsRequired() {
+                    const allInputs = document.querySelectorAll('#booking-form input, #booking-form select, #booking-form textarea');
+                    allInputs.forEach(input => {
+                        input.required = true;  // Mark each input field as required
+                    });
+                }
+
+                // Paystack payment handling
+                bookButton.addEventListener('click', function() {
+                    markFieldsRequired();  // Ensure all fields are marked required
+
+                    // Check if all required fields are filled
+                    const allInputs = document.querySelectorAll('#booking-form input, #booking-form select, #booking-form textarea');
+                    const allFilled = Array.from(allInputs).every(input => input.value.trim() !== '');
+
+                    if (allFilled && transportPrice > 0) {
+                        const handler = PaystackPop.setup({
+                            key: 'pk_test_678dbd0531c9c40890a4ce0ba18ab41270132c02',  // Replace with your Paystack public key
+                            email: '{{ request.user.email }}',  // Use logged-in user's email
+                            amount: transportPrice * 100,  // Amount in kobo
+                            currency: 'GHS',  // Currency
+                            ref: 'TX' + Math.floor((Math.random() * 1000000000) + 1),  // Unique transaction reference
+                            callback: function(response) {
+                                alert('Payment successful. Transaction reference: ' + response.reference);
+                                document.getElementById('booking-form').submit();
+                            },
+                            onClose: function() {
+                                alert('Payment window closed.');
+                            }
+                        });
+                        handler.openIframe();
+                    } else {
+                        alert('Please fill all required fields and select valid destinations.');
+                    }
+                });
+
+                fromDestinationSelect.addEventListener('change', fetchPrice);
+                toDestinationSelect.addEventListener('change', fetchPrice);
+
+                // Mark fields required on page load
+                markFieldsRequired();
+            });
+        </script>
+    </div>
+</body>
+{% endblock %}

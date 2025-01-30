@@ -1,0 +1,238 @@
+{
+    "Greater Accra Region": {
+        "Accra": {
+            "Tema": 100.00,
+            "Madina": 120.00,
+            "Teshie": 130.00,
+            "Nungua": 110.00
+        },
+        "Tema": {
+            "Accra": 100.00,
+            "Madina": 140.00,
+            "Teshie": 150.00,
+            "Nungua": 120.00
+        },
+        "Madina": {
+            "Accra": 120.00,
+            "Tema": 140.00,
+            "Teshie": 125.00,
+            "Nungua": 115.00
+        },
+        "Teshie": {
+            "Accra": 130.00,
+            "Tema": 150.00,
+            "Madina": 125.00,
+            "Nungua": 135.00
+        },
+        "Nungua": {
+            "Accra": 110.00,
+            "Tema": 120.00,
+            "Madina": 115.00,
+            "Teshie": 135.00
+        }
+    },
+    "Ashanti Region": {
+        "Kumasi": {
+            "Obuasi": 80.00,
+            "Ejisu": 90.00,
+            "Mampong": 85.00,
+            "Konongo": 95.00
+        },
+        "Obuasi": {
+            "Kumasi": 80.00,
+            "Ejisu": 85.00,
+            "Mampong": 90.00,
+            "Konongo": 95.00
+        },
+        "Ejisu": {
+            "Kumasi": 90.00,
+            "Obuasi": 85.00,
+            "Mampong": 75.00,
+            "Konongo": 80.00
+        },
+        "Mampong": {
+            "Kumasi": 85.00,
+            "Obuasi": 90.00,
+            "Ejisu": 75.00,
+            "Konongo": 70.00
+        },
+        "Konongo": {
+            "Kumasi": 95.00,
+            "Obuasi": 90.00,
+            "Ejisu": 80.00,
+            "Mampong": 70.00
+        }
+    },
+    "Western Region": {
+        "Sekondi-Takoradi": {
+            "Tarkwa": 110.00,
+            "Axim": 100.00,
+            "Prestea": 120.00,
+            "Sefwi-Wiawso": 130.00
+        },
+        "Tarkwa": {
+            "Sekondi-Takoradi": 110.00,
+            "Axim": 90.00,
+            "Prestea": 100.00,
+            "Sefwi-Wiawso": 120.00
+        },
+        "Axim": {
+            "Sekondi-Takoradi": 100.00,
+            "Tarkwa": 90.00,
+            "Prestea": 110.00,
+            "Sefwi-Wiawso": 130.00
+        },
+        "Prestea": {
+            "Sekondi-Takoradi": 120.00,
+            "Tarkwa": 100.00,
+            "Axim": 110.00,
+            "Sefwi-Wiawso": 140.00
+        },
+        "Sefwi-Wiawso": {
+            "Sekondi-Takoradi": 130.00,
+            "Tarkwa": 120.00,
+            "Axim": 140.00,
+            "Prestea": 150.00
+        }
+    },
+    "Eastern Region": {
+        "Koforidua": {
+            "Akim Oda": 85.00,
+            "Nkawkaw": 95.00,
+            "Suhum": 80.00,
+            "Akwatia": 90.00
+        },
+        "Akim Oda": {
+            "Koforidua": 85.00,
+            "Nkawkaw": 90.00,
+            "Suhum": 75.00,
+            "Akwatia": 80.00
+        },
+        "Nkawkaw": {
+            "Koforidua": 95.00,
+            "Akim Oda": 90.00,
+            "Suhum": 85.00,
+            "Akwatia": 80.00
+        },
+        "Suhum": {
+            "Koforidua": 80.00,
+            "Akim Oda": 75.00,
+            "Nkawkaw": 85.00,
+            "Akwatia": 90.00
+        },
+        "Akwatia": {
+            "Koforidua": 90.00,
+            "Akim Oda": 80.00,
+            "Nkawkaw": 80.00,
+            "Suhum": 90.00
+        }
+    },
+    "Volta Region": {
+        "Ho": {
+            "Keta": 70.00,
+            "Hohoe": 60.00,
+            "Aflao": 80.00,
+            "Denu": 90.00
+        },
+        "Keta": {
+            "Ho": 70.00,
+            "Hohoe": 65.00,
+            "Aflao": 75.00,
+            "Denu": 85.00
+        },
+        "Hohoe": {
+            "Ho": 60.00,
+            "Keta": 65.00,
+            "Aflao": 70.00,
+            "Denu": 75.00
+        },
+        "Aflao": {
+            "Ho": 80.00,
+            "Keta": 75.00,
+            "Hohoe": 70.00,
+            "Denu": 85.00
+        },
+        "Denu": {
+            "Ho": 90.00,
+            "Keta": 85.00,
+            "Hohoe": 75.00,
+            "Aflao": 85.00
+        }
+    },
+    "Northern Region": {
+        "Tamale": {
+            "Yendi": 50.00,
+            "Savelugu": 45.00,
+            "Bimbilla": 55.00,
+            "Salaga": 60.00
+        },
+        "Yendi": {
+            "Tamale": 50.00,
+            "Savelugu": 40.00,
+            "Bimbilla": 55.00,
+            "Salaga": 65.00
+        },
+        "Savelugu": {
+            "Tamale": 45.00,
+            "Yendi": 40.00,
+            "Bimbilla": 50.00,
+            "Salaga": 55.00
+        },
+        "Bimbilla": {
+            "Tamale": 55.00,
+            "Yendi": 55.00,
+            "Savelugu": 50.00,
+            "Salaga": 60.00
+        },
+        "Salaga": {
+            "Tamale": 60.00,
+            "Yendi": 65.00,
+            "Savelugu": 55.00,
+            "Bimbilla": 60.00
+        }
+    },
+    "Central Region": {
+        "Cape Coast": {
+            "Elmina": 30.00,
+            "Winneba": 25.00,
+            "Mankessim": 20.00,
+            "Saltpond": 35.00
+        },
+        "Elmina": {
+            "Cape Coast": 30.00,
+            "Winneba": 20.00,
+            "Mankessim": 25.00,
+            "Saltpond": 35.00
+        },
+        "Winneba": {
+            "Cape Coast": 25.00,
+            "Elmina": 20.00,
+            "Mankessim": 15.00,
+            "Saltpond": 30.00
+        },
+        "Mankessim": {
+            "Cape Coast": 20.00,
+            "Elmina": 25.00,
+            "Winneba": 15.00,
+            "Saltpond": 25.00
+        },
+        "Saltpond": {
+            "Cape Coast": 35.00,
+            "Elmina": 30.00,
+            "Winneba": 30.00,
+            "Mankessim": 25.00
+        }
+    },
+    "Upper East Region": {
+        "Bolgatanga": {
+            "Navrongo": 40.00,
+            "Bawku": 35.00,
+            "Zebilla": 30.00,
+            "Sandema": 25.00
+        },
+        "Navrongo": {
+    "Bolgatanga": 40.00,
+    "Bawku": 35.00,
+    "Zebilla": 30.00,
+    "Sandema": 25.00
+}

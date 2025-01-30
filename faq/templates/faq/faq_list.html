@@ -1,0 +1,89 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<style>
+    /* Ensure the container fills the entire viewport */
+    .min-vh-100 {
+        min-height: 100vh;
+        display: flex; /* Enable Flexbox on the container */
+        flex-direction: column; /* Stack elements vertically */
+        justify-content: center; /* Vertically center */
+        align-items: center; /* Horizontally center */
+    }
+
+    .search-form-container {
+        max-width: 500px; /* Adjust the max-width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+    }
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%; /* Ensure input field takes full width of its container */
+        box-sizing: border-box; /* Prevent padding from increasing width */
+    }
+
+    .btn-orange {
+        background-color: orange;
+        border-color: orange;
+        color: white;
+        width: 100%; /* Make the button width consistent */
+        max-width: 150px; /* Limit the button width */
+        margin-top: 10px; /* Add spacing between button and input */
+        display: inline-block; /* Ensure button stays inline with text */
+    }
+
+    .btn-orange:hover {
+        background-color: darkorange;
+        border-color: darkorange;
+    }
+
+    .faq-item {
+        margin-bottom: 20px;
+    }
+</style>
+
+
+<div class="container min-vh-100">
+    <div class="text-center">
+        <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <!-- Search Form -->
+    <div class="search-form-container">
+        <form method="POST" action="{% url 'faq_list' %}" class="text-center">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-orange">Search</button>
+        </form>
+    </div>
+
+    <!-- FAQ List -->
+    <div class="faq-list mt-4 text-center">
+        {% if faqs %}
+            <ul class="list-unstyled">
+                {% for faq in faqs %}
+                    <li class="faq-item">
+                        <strong>{{ faq.question }}</strong><br>
+                        <p>{{ faq.answer }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No FAQs found.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

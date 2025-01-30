@@ -1,0 +1,100 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+<style>
+   .centered-payment {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+       text-align: center; /* Center text within the div */
+       margin: 0 auto; /* Center the div in its container */
+   }
+
+   .payment-bg {
+       width: 100%; /* Optional: Make the background take the full width */
+       max-width: 500px; /* Optional: Set a max width for better presentation */
+   }
+</style>
+
+<div class="centered-payment">
+    <h5 class="section-title text-uppercase mb-3">Payment</h5>
+    <div class="payment-bg bg-light p-30">
+        <form method="POST" id="paymentForm" onsubmit="return false;">  <!-- Prevent default form submission -->
+            {% csrf_token %}
+            <input type="hidden" name="total_amount" value="{{ total_price }}">
+
+            <div class="form-group">
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" name="payment_method" id="mobilemoney" value="mobilemoney" required>
+                    <label class="custom-control-label" for="mobilemoney">Mobile Money</label>
+                </div>
+            </div>
+<!--            <div class="form-group">-->
+<!--                <div class="custom-control custom-radio">-->
+<!--                    <input type="radio" class="custom-control-input" name="payment_method" id="creditcard" value="creditcard" required>-->
+<!--                    <label class="custom-control-label" for="creditcard">Master/Credit Card</label>-->
+<!--                </div>-->
+<!--            </div>-->
+            <button type="button" class="btn btn-block btn-primary font-weight-bold py-3" onclick="processPayment()">Complete Payment</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+    function processPayment() {
+        var paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+        if (!paymentMethod) {
+            alert('Please select a payment method.'); // Alert if no payment method is selected
+            return;
+        }
+
+        var totalPrice = parseFloat(document.querySelector('input[name="total_amount"]').value);
+        var shippingFee = 200.00;  // Set your shipping fee
+        var totalAmount = totalPrice + shippingFee;  // Calculate total amount
+
+        // Update the total_amount input with the new value
+        document.querySelector('input[name="total_amount"]').value = totalAmount;
+
+        var publicKey = 'pk_test_678dbd0531c9c40890a4ce0ba18ab41270132c02'; // Replace with your Paystack public key
+
+        // Configure the payment channels based on the selected method
+        var channels = [];
+        switch(paymentMethod.value) {
+            case 'mobilemoney':
+                channels = ['mobile_money']; // Use mobile money channel
+                break;
+            case 'creditcard':
+                channels = ['card']; // Use card channel
+                break;
+            case 'banktransfer':
+                channels = ['bank']; // Use bank transfer channel
+                break;
+        }
+
+        // Use Paystack inline payment for all methods
+        var handler = PaystackPop.setup({
+            key: publicKey,
+            email: '{{ user.email }}',  // Use the user's email from the template context
+            amount: totalAmount * 100,  // Paystack expects amount in kobo for NGN
+            currency: 'GHS',  // Change this to your desired currency
+            channels: channels,  // Set payment channels based on the selected method
+            callback: function(response) {
+                // On success, submit the form to the backend
+                var form = document.getElementById('paymentForm');
+                form.action = '{% url "payment:process_payment" %}'; // Set the action to your process_payment view
+                form.method = 'POST'; // Set method to POST
+                form.submit(); // Submit the form
+            },
+            onClose: function() {
+                alert('Transaction was not completed, window closed.');
+            }
+        });
+
+        handler.openIframe();  // Open Paystack's payment form
+    }
+</script>
+
+{% endblock %}

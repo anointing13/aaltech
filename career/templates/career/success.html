@@ -1,0 +1,81 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}  <!-- Correct block name -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <style>
+        /* Base styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9; /* Light background for modern look */
+            margin: 0;
+            padding: 0;
+        }
+
+        .min-vh-100 {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Add padding for smaller screens */
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px; /* Slightly more rounded for a modern look */
+            width: 100%;
+            max-width: 600px; /* Set a max-width for the card */
+            padding: 40px;
+            background-color: white; /* White background for card */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+            transition: transform 0.2s; /* Smooth transform on hover */
+        }
+
+        h2 {
+            color: #4CAF50; /* Green color for success message */
+            text-align: center; /* Center the text */
+            margin-bottom: 20px; /* Space below the header */
+        }
+
+        p {
+            text-align: center; /* Center paragraph text */
+        }
+
+        /* Media queries for small and smaller screens */
+        @media (max-width: 768px) {
+            .min-vh-100 {
+                margin-top: -10%;  /* Reduce top margin for small screens */
+                margin-bottom: -10%; /* Reduce bottom margin for small screens */
+            }
+            .card {
+                padding: 30px; /* Optional: adjust padding for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .min-vh-100 {
+                margin-top: -50%; /* Further reduce top margin for very small screens */
+                margin-bottom: -50%; /* Further reduce bottom margin for very small screens */
+            }
+            .card {
+                padding: 20px; /* Optional: adjust padding for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-vh-100">
+        <div class="card">
+            <h2>Thank you for submitting your details!</h2>
+            <p>Your information has been successfully received. We will get back to you shortly.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

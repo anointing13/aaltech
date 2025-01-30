@@ -1,0 +1,380 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f4;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .points-display {
+        text-align: center;
+        font-size: 1.5em;
+        margin: 20px 0;
+        color: #007BFF;
+    }
+
+    .transaction-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .transaction-item {
+        background: #f9f9f9;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .transaction-item:nth-child(even) {
+        background: #eef6fc;
+    }
+
+    .transaction-type {
+        font-weight: bold;
+        color: #007BFF;
+    }
+
+    .transaction-points {
+        color: #555;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        transition: background 0.3s ease;
+    }
+
+    .btn-withdraw {
+        background: #00BFFF;
+        color: #fff;
+    }
+
+    .btn-withdraw:hover {
+        background: #007FFF;
+    }
+
+    .btn-refresh {
+        background: #28a745;
+        color: #fff;
+    }
+
+    .btn-refresh:hover {
+        background: #1e7e34;
+    }
+
+    @media (max-width: 600px) {
+        .buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+
+    #withdraw-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #withdraw-modal div {
+        background: #ffffff;
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    #withdraw-modal h2 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    #withdraw-modal input[type="text"],
+    #withdraw-modal input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1em;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+    #withdraw-modal input[type="text"]:focus,
+    #withdraw-modal input[type="number"]:focus {
+        border-color: #007BFF;
+        outline: none;
+    }
+
+    #withdraw-modal .btn {
+        display: inline-block;
+        width: 48%;
+        margin: 5px 1%;
+        text-align: center;
+    }
+
+    #withdraw-modal .btn-withdraw {
+        background: #007BFF;
+        color: white;
+        padding: 12px;
+        font-size: 1em;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    #withdraw-modal .btn-withdraw:hover {
+        background: #0056b3;
+    }
+
+    #withdraw-modal .btn-refresh {
+        background: #dc3545;
+        color: white;
+        padding: 12px;
+        font-size: 1em;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    #withdraw-modal .btn-refresh:hover {
+        background: #c82333;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+.pagination {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center the pagination horizontally */
+    align-items: center; /* Center the buttons vertically */
+    gap: 10px; /* Add spacing between buttons */
+    margin-top: 20px;
+    margin-bottom: 60px;
+    height: auto; /* Adjust height if needed */
+    text-align: center;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    border: 2px solid #d3d3d3;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(211, 211, 211, 0.6);
+    color: darkorange;
+    font-size: 0.9em; /* Slightly larger for better visibility */
+    transition: background 0.3s ease;
+    text-align: center;
+}
+
+.pagination button:hover {
+    background-color: #d3d3d3;
+}
+
+.pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
+</style>
+
+<div class="container">
+    <h1 style="font-weight: bold;">Points Wallet</h1>
+    <div class="points-display">Points: <span id="wallet-points">{{ wallet.points }}</span></div>
+
+    <!-- Success Message -->
+    <div id="success-message" style="display: none; color: green; text-align: center; margin-top: 10px;">
+        Withdrawal request submitted successfully!
+    </div>
+
+    <h2>Transactions</h2>
+<ul class="transaction-list" id="transaction-list">
+    {% for transaction in transactions %}
+        <li class="transaction-item">
+            <span class="transaction-type">{{ transaction.transaction_type }}</span>
+            <span class="transaction-points">{{ transaction.points }} points</span>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <button id="prev-button" onclick="changePage(-1)" disabled>Prev</button>
+    <button id="next-button" onclick="changePage(1)">Next</button>
+</div>
+
+
+
+    <div class="buttons">
+        <button class="btn btn-withdraw" onclick="openWithdrawModal()">Withdraw Points</button>
+        <button class="btn btn-withdraw" onclick="goToWithdrawalHistory()">Withdraw History</button>
+        <button class="btn btn-refresh" onclick="refreshPage()">Refresh</button>
+    </div>
+
+
+</div>
+
+
+
+
+<!-- Withdraw Modal -->
+<div id="withdraw-modal">
+    <div>
+        <h2>Withdraw Points</h2>
+        <form method="POST" action="{% url 'points_wallet:withdraw_view' %}" onsubmit="return validateWithdrawal();">
+            {% csrf_token %}
+            <div>
+                <input type="text" name="full_name" placeholder="Full Name" required>
+            </div>
+            <div>
+                <input type="text" name="mobile_money_number" placeholder="Mobile Money Number" required>
+            </div>
+            <div>
+                <input type="number" name="points" placeholder="Points to Withdraw" required>
+            </div>
+            <p id="error-message" style="color: red;"></p> <!-- Error message for validation -->
+
+            <p style="color: #007bff; font-size: 14px; margin-bottom: 5px;">
+                <strong>Note:</strong> 15,000 points = GHS 150
+            </p>
+
+            <button type="submit" class="btn btn-withdraw" style="margin-top: 2%;">Submit</button>
+            <button type="button" class="btn btn-refresh" onclick="closeWithdrawModal()">Close</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const MIN_POINTS = 15000;
+    const userPoints = parseInt(document.getElementById("wallet-points").textContent);
+
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    function openWithdrawModal() {
+        document.getElementById('withdraw-modal').style.display = 'flex';
+    }
+
+    function closeWithdrawModal() {
+        document.getElementById('withdraw-modal').style.display = 'none';
+    }
+
+    function validateWithdrawal() {
+        const pointsInput = document.querySelector('[name="points"]');
+        const points = parseInt(pointsInput.value);
+        const errorMessage = document.getElementById('error-message');
+
+        // Check if points are valid and meet the minimum requirement
+        if (isNaN(points) || points < MIN_POINTS) {
+            pointsInput.setCustomValidity('The minimum withdrawal is ' + MIN_POINTS + ' points.');
+            errorMessage.textContent = 'Minimum withdrawal: ' + MIN_POINTS + ' points';
+            return false;  // Prevent form submission
+        } else if (points > userPoints) {
+            errorMessage.textContent = 'Insufficient balance. You only have ' + userPoints + ' points.';
+            return false;  // Prevent form submission
+        } else {
+            pointsInput.setCustomValidity('');
+            errorMessage.textContent = '';
+            return true;  // Allow form submission
+        }
+    }
+</script>
+
+<script>
+    function goToWithdrawalHistory() {
+        window.location.href = '/points-wallet/withdrawal-history/';
+    }
+</script>
+
+
+<script>
+let currentPage = 1;
+const itemsPerPage = 3; // Number of transactions to show per page
+const transactions = document.querySelectorAll('.transaction-item');
+const totalTransactions = transactions.length;
+
+function showPage(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    // Hide all transactions
+    transactions.forEach((transaction, index) => {
+        if (index >= start && index < end) {
+            transaction.style.display = 'flex'; // Show transaction
+        } else {
+            transaction.style.display = 'none'; // Hide transaction
+        }
+    });
+
+    // Update pagination buttons
+    document.getElementById('prev-button').disabled = page === 1;
+    document.getElementById('next-button').disabled = end >= totalTransactions;
+}
+
+function changePage(direction) {
+    currentPage += direction;
+    showPage(currentPage);
+}
+
+// Initialize the pagination
+showPage(currentPage);
+</script>
+
+{% endblock %}

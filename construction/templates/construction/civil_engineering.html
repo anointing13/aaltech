@@ -1,0 +1,138 @@
+{% extends "product/layout.html" %}
+		{% load static %}
+
+{% block 'content' %}
+
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #FFA500; /* Orange */
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #00BFFF; /* Light Blue */
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFA500;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust height as needed */
+    overflow: hidden;
+}
+
+.fade-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    border-radius: 20px;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+
+</style>
+<body>
+<section id="about">
+    <h2 style=" text-align: center; " >Civil Engineering and Infrastructure Services</h2>
+    <div class="image-container">
+        <img src="{% static 'product/assets/img/pexels-tomfisk-2101137.jpg' %}" alt="Gold Mining 1" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-ikbalphoto-10421760.jpg' %}" alt="Gold Mining 2" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-enrique72-15071424.jpg' %}" alt="Gold Mining 3" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-marcin-studio-369017-17320062.jpg' %}" alt="Gold Mining 4" class="fade-image">
+        <img src="{% static 'product/assets/img/pexels-piotr-arnoldes-7862031-6109673.jpg' %}" alt="Gold Mining 5" class="fade-image">
+    </div>
+</section>
+
+    <section id="about">
+        <h2 style=" text-align: center; ">Civil Engineering and Infrastructure</h2>
+        <p>Ante Omnia excels in large-scale infrastructure projects, including roads, bridges, water supply systems, and urban planning. We integrate sustainable practices to ensure public utilities and spaces meet modern standards while supporting urban development.</p>
+    </section>
+
+    
+
+    <section id="video">
+    <h2 style="text-align: center;">Watch Our Journey</h2>
+    <iframe width="100%" height="348" src="https://www.youtube.com/embed/1AbehpoIo-0?list=PLC7XdfstVva5XlayjXNMKTvVrQb3ij8ZT&autoplay=1" title="Anointing Zone" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 20px;"></iframe>
+  </section>
+
+
+    <script>
+        const images = document.querySelectorAll('.fade-image');
+const overlay = document.querySelector('.overlay');
+let currentImageIndex = 0;
+
+function fadeImages() {
+    // Set the current image to be visible
+    images[currentImageIndex].style.opacity = 1;
+
+    // Fade out the current image after some time
+    setTimeout(() => {
+        images[currentImageIndex].style.opacity = 0;
+
+        // Update the index for the next image
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+
+        // Fade in the next image
+        setTimeout(fadeImages, 1000); // 1 second to fade out
+    }, 4000); // 4 seconds for each image
+}
+
+// Start the fade effect
+fadeImages();
+
+    </script>
+</body>
+
+{% endblock %}

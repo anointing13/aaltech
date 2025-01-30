@@ -1,0 +1,150 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}  <!-- Correct block name -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Form</title>
+    <style>
+        /* Base styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9; /* Light background for modern look */
+            margin: 0;
+            padding: 0;
+        }
+
+        .min-vh-100 {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Add padding for smaller screens */
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px; /* Slightly more rounded for a modern look */
+            width: 100%;
+            max-width: 600px; /* Set a max-width for the card */
+            padding: 40px;
+            background-color: white; /* White background for card */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+            transition: transform 0.2s; /* Smooth transform on hover */
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift effect on hover */
+        }
+
+        h2 {
+            color: #333; /* Darker color for text */
+            margin-bottom: 20px; /* Space below the header */
+            text-align: center; /* Center the heading */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Space between form groups */
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555; /* Slightly lighter color for labels */
+            display: block; /* Ensure labels take up the full width */
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px; /* More padding for inputs */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%; /* Ensure input fields take full width */
+            box-sizing: border-box; /* Prevent padding from increasing width */
+            transition: border-color 0.3s; /* Smooth transition for border color */
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: orange; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        .btn-orange {
+            background-color: orange;
+            border-color: orange;
+            color: white;
+            padding: 12px; /* Add padding to the button */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners for button */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Increase font size */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+            width: 100%; /* Full width button */
+        }
+
+        .btn-orange:hover {
+            background-color: darkorange; /* Darker background on hover */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card {
+                padding: 30px; /* Reduce padding for smaller screens */
+            }
+
+            h2 {
+                font-size: 24px; /* Adjust header size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-vh-100">
+        <div class="card">
+            <h2>Submit Your Career Information</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Explicitly styling the form fields -->
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone_number.id_for_label }}">Phone Number</label>
+                    {{ form.phone_number }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{ form.address }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cv.id_for_label }}">Curriculum vitae (Image Only)</label>
+                    {{ form.cv }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cover_letter.id_for_label }}">Cover Letter (Image Only)</label>
+                    {{ form.cover_letter }}
+                </div>
+
+                <button type="submit" class="btn btn-orange">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

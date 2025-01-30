@@ -1,0 +1,149 @@
+{% extends "product/layout.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<style>
+    /* General page styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align content at the top */
+        align-items: center; /* Center content horizontally */
+        width: 100%; /* Ensure the body takes up the full width */
+        max-width: 2500px; /* Increased max-width to allow more space */
+        margin: 0 auto; /* Center the body horizontally */
+        padding-top: 50px; /* Add space at the top */
+    }
+
+    .title, h2 {
+        font-family: 'Helvetica Neue', sans-serif;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .title {
+        font-size: 4rem; /* Larger title for more impact */
+        font-weight: 600;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 2.5rem; /* Larger subheading */
+        color: #FF5722; /* A modern orange accent */
+    }
+
+    .description {
+        text-align: center;
+        font-size: 1.2rem; /* Slightly larger text */
+        color: #555;
+        line-height: 1.8;
+        max-width: 1000px; /* Make paragraph wider */
+        margin: 0 auto 40px auto; /* Add more bottom margin */
+    }
+
+    /* Gallery container - center aligned */
+    .gallery-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Increased min width of columns */
+        gap: 40px; /* More space between items */
+        padding: 0 10px;
+        justify-items: center;
+        max-width: 100%; /* Make sure the gallery is responsive */
+        margin-top: 30px;
+    }
+
+    .gallery-image {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow for depth */
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+        padding: 30px; /* Increased padding */
+        max-width: 600px; /* Increased max width for larger cards */
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-image img {
+        width: 100%;        /* Ensure image fills container width */
+        height: 500px;      /* Increased height for larger images */
+        object-fit: cover;  /* Cover the area without distorting the image */
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .gallery-image p {
+        font-size: 1.4rem;  /* Larger caption for more impact */
+        color: #333;
+        padding-top: 20px;  /* More space above caption */
+        margin-top: 15px;   /* More space below caption */
+        font-style: italic;
+    }
+
+    /* Hover effects */
+    .gallery-image:hover {
+        transform: scale(1.08); /* Slight scale on hover */
+    }
+
+    .gallery-image img:hover {
+        transform: scale(1.08); /* Slight scale on hover */
+    }
+
+    /* Media Query for Small Screens */
+    @media (max-width: 768px) {
+        body {
+            padding-top: 20px; /* Less top padding on small screens */
+        }
+
+        .title {
+            font-size: 2.5rem; /* Smaller title on small screens */
+        }
+
+        .description {
+            font-size: 1rem; /* Smaller font size for descriptions */
+            padding: 0 10px; /* Add some padding on smaller screens */
+        }
+
+        .gallery-images {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Smaller grid items */
+            gap: 20px; /* Less gap between images */
+        }
+
+        .gallery-image {
+            padding: 20px; /* Less padding on small screens */
+            max-width: 90%; /* Reduce the max width */
+        }
+
+        .gallery-image img {
+            height: 300px; /* Smaller image height */
+        }
+
+        .gallery-image p {
+            font-size: 1.1rem; /* Smaller caption text */
+        }
+    }
+</style>
+
+<h1 class="title">{{ gallery.title }}</h1>
+<p class="description">{{ gallery.description }}</p>
+
+<div class="gallery-images">
+    {% for image in images %}
+        <div class="gallery-image">
+            <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+            <p>{{ image.caption }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

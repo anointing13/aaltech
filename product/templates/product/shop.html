@@ -1,0 +1,212 @@
+{% extends "product/layout.html" %}
+		{% load static %}
+
+{% block 'content' %}
+
+<!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="/">Home</a>
+                    <a class="breadcrumb-item text-dark" href="/shop/">Shop</a>
+                    <span class="breadcrumb-item active">Shop List</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Shop Start -->
+    <div class="container-fluid">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-4">
+            <!-- Price Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form method="POST" action="{% url 'filter' %}">
+                    {% csrf_token %}
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" name="price" value="all" checked id="price-all">
+                        <label class="custom-control-label" for="price-all">All Price</label>
+                        <span class="badge border font-weight-normal">50000</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" name="price" value="0-100" id="price-1">
+                        <label class="custom-control-label" for="price-1">$0 - $10000</label>
+                        <span class="badge border font-weight-normal">1500</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" name="price" value="100-200" id="price-2">
+                        <label class="custom-control-label" for="price-2">$10000 - $20000</label>
+                        <span class="badge border font-weight-normal">295</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" name="price" value="200-300" id="price-3">
+                        <label class="custom-control-label" for="price-3">$20000 - $30000</label>
+                        <span class="badge border font-weight-normal">246</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" name="price" value="300-400" id="price-4">
+                        <label class="custom-control-label" for="price-4">$30000 - $40000</label>
+                        <span class="badge border font-weight-normal">145</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                        <input type="checkbox" class="custom-control-input" name="price" value="400-500" id="price-5">
+                        <label class="custom-control-label" for="price-5">$40000 - $50000</label>
+                        <span class="badge border font-weight-normal">168</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Apply Filters</button>
+                </form>
+            </div>
+            <!-- Price End -->
+
+        </div>
+        <!-- Shop Sidebar End -->
+
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                            <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                        </div>
+
+                        <div class="ml-2">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Latest</a>
+                                    <a class="dropdown-item" href="#">Popularity</a>
+                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                </div>
+                            </div>
+                            <div class="btn-group ml-2">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">10</a>
+                                    <a class="dropdown-item" href="#">20</a>
+                                    <a class="dropdown-item" href="#">30</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% for data in key %}
+<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+    <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden">
+            <img class="img-fluid w-100" src="{{ data.image.url }}" alt="">
+            <div class="product-action">
+                <!-- Add to Cart button -->
+                <form method="post" action="{% url 'add_to_cart' data.id %}" id="addToCartForm{{ forloop.counter }}">
+                          {% csrf_token %}
+                     <a class="btn btn-outline-dark btn-square" id="submitBtn{{ forloop.counter }}">
+                          <i class="fa fa-shopping-cart"></i>
+                     </a>
+                </form>
+                <!-- Add to Favorites button -->
+                <a class="btn btn-outline-dark btn-square" href="{% url 'add_to_favorites' data.id %}">
+                    <i class="far fa-heart"></i>
+                </a>
+                <a class="btn btn-outline-dark btn-square" href="/shop/"><i class="fa fa-sync-alt"></i></a>
+<!--                <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>-->
+            </div>
+        </div>
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="show/{{ data.id }}/">{{ data.name }}</a>
+            <div class="d-flex align-items-center justify-content-center mt-2">
+                <h5>GHS {{ data.get_display_price }}</h5>
+                <h6 class="text-muted ml-2"><del>% {{ data.discount }}</del></h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-1">
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small class="fa fa-star text-primary mr-1"></small>
+                <small>(99)</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="col-12">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <!-- Previous Page Link -->
+            <li class="page-item {% if not key.has_previous %}disabled{% endif %}">
+                {% if key.has_previous %}
+                    <a class="page-link" href="?page={{ key.previous_page_number }}&search={{ request.GET.search }}">Previous</a>
+                {% else %}
+                    <span class="page-link">Previous</span>
+                {% endif %}
+            </li>
+
+            <!-- Page Number Links -->
+            {% for num in key.paginator.page_range %}
+                <li class="page-item {% if key.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}&search={{ request.GET.search }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+
+            <!-- Next Page Link -->
+            <li class="page-item {% if not key.has_next %}disabled{% endif %}">
+                {% if key.has_next %}
+                    <a class="page-link" href="?page={{ key.next_page_number }}&search={{ request.GET.search }}">Next</a>
+                {% else %}
+                    <span class="page-link">Next</span>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+</div>
+</div>
+    </div>
+    </div>
+{{ Found }}
+
+
+<script>
+    // Select all submit buttons by their id prefix
+    document.querySelectorAll('[id^="submitBtn"]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default anchor behavior
+            // Construct the corresponding form ID
+            const formId = btn.id.replace('submitBtn', 'addToCartForm');
+            document.getElementById(formId).submit(); // Submit the form
+        });
+    });
+</script>
+
+
+
+        <!-- JavaScript to update favorite count -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateFavoriteCount() {
+            fetch('{% url "favorite_count" %}')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('favoriteCountBadge').textContent = data.count;
+                })
+                .catch(error => console.error('Error fetching favorite count:', error));
+        }
+
+        // Initial count update
+        updateFavoriteCount();
+
+        // Optionally, set up an interval to periodically update the count
+        setInterval(updateFavoriteCount, 60000); // Update every 60 seconds
+    });
+    </script>
+
+  {% endblock %}

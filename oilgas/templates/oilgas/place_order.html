@@ -1,0 +1,129 @@
+{% extends "product/layout.html" %}
+{% load static %}
+{% block 'content' %}
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif; /* Modern font */
+        background-color: #f4f4f4; /* Background color for the whole page */
+    }
+    .min-vh-100 {
+        min-height: 100vh;
+        display: grid;
+        place-items: center; /* Centers the form horizontally and vertically */
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* More pronounced shadow for depth */
+        background-color: white;
+        width: 120%;
+        max-width: 500px; /* Max width for better structure */
+        transition: transform 0.3s; /* Smooth scaling effect */
+    }
+    .card:hover {
+        transform: scale(1.02); /* Scale effect on hover */
+    }
+    .form-group {
+        margin-bottom: 15px; /* Space between form groups */
+    }
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block; /* Ensures labels are on their own line */
+        color: #333; /* Slightly darker color for better visibility */
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s; /* Smooth border color change */
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: orange; /* Highlight border on focus */
+        outline: none; /* Remove default outline */
+    }
+    .btn-orange {
+        background-color: orange;
+        border-color: orange;
+        color: white;
+        width: 100%;
+        border-radius: 5px; /* Slightly rounder corners */
+        padding: 10px;
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    }
+    .btn-orange:hover {
+        background-color: darkorange;
+        border-color: darkorange;
+        transform: translateY(-2px); /* Slight lift on hover */
+    }
+</style>
+
+<div class="min-vh-100">
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.tonnage.label }}
+                {{ form.tonnage }}
+            </div>
+            <div class="form-group">
+                {{ form.super_lpg.label }}
+                {{ form.super_lpg }}
+            </div>
+            <div class="form-group">
+                {{ form.quantity_of_load.label }}
+                {{ form.quantity_of_load }}
+            </div>
+            <div class="form-group">
+                {{ form.tank_capacity.label }}
+                {{ form.tank_capacity }}
+            </div>
+            <div class="form-group">
+                {{ form.station_name.label }}
+                {{ form.station_name }}
+            </div>
+            <div class="form-group">
+                {{ form.car_number.label }}
+                {{ form.car_number }}
+            </div>
+            <div class="form-group">
+                {{ form.driver_name.label }}
+                {{ form.driver_name }}
+            </div>
+            <button type="submit" class="btn-orange">Place Order</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Make the form responsive to window resizing
+    window.addEventListener('resize', function() {
+        const card = document.querySelector('.card');
+        if (window.innerWidth < 500) {
+            card.style.maxWidth = '90%'; // Adjust max width for smaller screens
+        } else {
+            card.style.maxWidth = '400px'; // Default max width
+        }
+    });
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const containerSize = document.querySelector('select[name="tonnage"]').value; // Updated field name
+        const oilOrGas = document.querySelector('select[name="super_lpg"]').value; // Updated field name
+        if (!containerSize || !oilOrGas) {
+            e.preventDefault();
+            alert('Please select both container size and oil/gas type.');
+        }
+    });
+</script>
+
+{% endblock %}

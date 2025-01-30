@@ -1,0 +1,127 @@
+.booking-body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    margin: 0; /* Remove default margin */
+    padding: 40px 0; /* Vertical padding for spacing */
+}
+
+.booking-container {
+    background-color: #fff; /* White background for the form */
+    padding: 30px; /* Padding for spacing */
+    border-radius: 8px; /* Slightly rounded corners */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 500px; /* Maximum width for the form */
+    width: 50%; /* Responsive width for smaller screens */
+    margin: 0 auto; /* Center the container */
+    position: relative; /* Establish positioning */
+    top: 20%; /* Move the container down slightly from the top */
+}
+
+.booking-title {
+    font-size: 26px; /* Title font size */
+    color: #333; /* Dark color for title */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below title */
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    width: 100%; /* Full width inputs */
+    padding: 12px; /* Reduced input padding */
+    margin-bottom: 15px; /* Space between inputs */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 4px; /* Slightly rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+.book-btn {
+    width: 100%; /* Full width button */
+    padding: 12px; /* Reduced button padding */
+    background-color: orange; /* Button background color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    color: white; /* White text */
+    font-size: 16px; /* Button font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth background change */
+}
+
+.book-btn:hover {
+    background-color: darkorange; /* Darker shade on hover */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+    .booking-container {
+        width: 80%; /* Allow more width on medium screens */
+        padding: 25px; /* Adjust padding for medium screens */
+    }
+
+    .booking-title {
+        font-size: 24px; /* Slightly smaller title font size */
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        padding: 10px; /* Adjust padding for inputs */
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-container {
+        width: 90%; /* Allow full width on small screens */
+        padding: 20px; /* Further reduce padding for small screens */
+        border: 1px solid #ddd; /* Add border for card effect */
+    }
+
+    .booking-title {
+        font-size: 22px; /* Smaller title font size */
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        padding: 10px; /* Reduce padding on inputs */
+        font-size: 15px; /* Smaller font size */
+    }
+
+    .book-btn {
+        padding: 10px; /* Reduce button padding */
+        font-size: 15px; /* Smaller button font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-container {
+        width: 95%; /* Allow almost full width on mobile */
+        padding: 15px; /* Reduce padding for mobile */
+        border-radius: 6px; /* Round corners more for mobile */
+    }
+
+    .booking-title {
+        font-size: 20px; /* Smaller title font size for mobile */
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+        padding: 8px; /* Further reduce padding on inputs */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .book-btn {
+        padding: 8px; /* Reduce button padding */
+        font-size: 14px; /* Smaller button font size */
+    }
+}
+
+.error-messages {
+    color: red;
+    background-color: #ffe6e6;
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
