@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'image_gallery',
     'transport',
     'product_special_offer',
-    # 'hidden_product',
+    'hidden_product',
     'recent_product',
     'points_wallet',
     'help',

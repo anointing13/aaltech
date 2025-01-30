@@ -45,7 +45,7 @@ urlpatterns = [
     # path('press_release/', include('press_release.urls')),
     path('image_gallery/', include('image_gallery.urls')),
     path('special-offers/', include('product_special_offer.urls')),
-    # path('hidden-product/', include('hidden_product.urls')),
+    path('hidden-product/', include('hidden_product.urls')),
     path('recent-product/', include('recent_product.urls')),  # Include the recent_product app
     path('points-wallet/', include('points_wallet.urls', namespace='points_wallet')),  # Include with namespace
     path('', include('help.urls')),
