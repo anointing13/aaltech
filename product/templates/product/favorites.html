@@ -31,7 +31,7 @@
                             <a href="{% url 'add_to_cart' favorite.product.id %}" > <img src="{{ favorite.product.image.url }}" alt="{{ favorite.product.name }}" style="width: 50px;"></a>
                             {{ favorite.product.name }}
                         </td>
-                        <td class="align-middle">${{ favorite.get_favorite_price|floatformat:2 }}</td>
+                        <td class="align-middle">GHS{{ favorite.get_favorite_price|floatformat:2 }}</td>
                         <td class="align-middle">
                             <a href="{% url 'remove_from_favorites' favorite.product.id %}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-times"></i>
